@@ -1,5 +1,7 @@
 package edu.odu.cs.cs330.items;
 
+import edu.odu.cs.cs330.items.creation.ConsumableCreation;
+
 /**
  * This class represents one Consumable Item--as found in most video games.
  * This includes food.
@@ -117,9 +119,9 @@ public class Consumable implements Item {
     @Override
     public Item clone()
     {
-        Consumable cpy = new Consumable();
+        ConsumableCreation copyMe = new ConsumableCreation();
 
-        return cpy;
+        return copyMe.fromExisting(this);
     }
 
     /**
@@ -136,7 +138,7 @@ public class Consumable implements Item {
 
         Consumable rhsItem = (Consumable) rhs;
 
-        return false;
+        return (rhsItem.hashCode() == this.hashCode());
     }
 
     /**
@@ -148,7 +150,7 @@ public class Consumable implements Item {
     @Override
     public int hashCode()
     {
-        return -1;
+        return (this.name.hashCode() + this.effect.hashCode());
     }
 
     /**
@@ -157,6 +159,11 @@ public class Consumable implements Item {
     @Override
     public String toString()
     {
-        return "Not Implemented";
+        return String.format(
+            FMT_STR,
+            this.getName(),
+            this.getEffect(),
+            this.getNumberOfUses()
+        );
     }
 }
