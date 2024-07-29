@@ -1,5 +1,7 @@
 package edu.odu.cs.cs330.items;
 
+import edu.odu.cs.cs330.items.creation.ToolCreation;
+
 /**
  * This class represents one tool--as found in most video games. This includes
  * pickaxes and shovels.
@@ -72,11 +74,9 @@ public class Tool extends Equippable implements Item {
     @Override
     public Item clone()
     {
-        Tool cpy = new Tool();
+        ToolCreation cloneIt = new ToolCreation();
 
-        cpy.setName(this.name);
-
-        return cpy;
+        return cloneIt.fromExisting(this);
     }
 
     /**
@@ -94,7 +94,7 @@ public class Tool extends Equippable implements Item {
 
         Tool rhsItem = (Tool) rhs;
 
-        return false;
+        return (rhsItem.hashCode() == this.hashCode());
     }
 
     /**
@@ -119,6 +119,14 @@ public class Tool extends Equippable implements Item {
     @Override
     public String toString()
     {
-        return "String.format(FMT_STR, ...)";
+        return String.format(
+            FMT_STR,
+            this.getName(),
+            this.getDurability(),
+            this.getSpeed(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel()
+        );
     }
 }
